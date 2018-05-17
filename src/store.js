@@ -1,19 +1,23 @@
 export class Store {
   constructor(initialStore = {}) {
-    this.store = { ...initialStore }
+    this._store = { ...initialStore }
     this.handlers = {
       update: []
     }
   }
 
+  getState() {
+    return {...this._store}
+  }
+
   update(callback) {
-    this.store = { ...callback({ ...this.store }) }
-    this.handlers.update.forEach(handler => handler({ ...this.store }))
+    this._store = { ...callback({ ...this._store }) }
+    this.handlers.update.forEach(handler => handler({ ...this._store }))
   }
 
   on(action, handler) {
     this.handlers[action].push(handler)
-    handler({ ...this.store })
+    handler({ ...this._store })
   }
 
   off(action, handler) {

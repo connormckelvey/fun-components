@@ -1,4 +1,4 @@
-export const completeTodo = (s, idx) => () => {
+export const completeTodo = s => idx => {
   s.update(store => {
     const t = { ...store.todos[idx], complete: true }
     const todos = Object.assign([], store.todos, { [idx]: t })
@@ -6,7 +6,7 @@ export const completeTodo = (s, idx) => () => {
   })
 }
 
-export const addTodo = s => (e) => {
+export const addTodo = s => e => {
   e.preventDefault()
   const input = document.querySelector("#newTodo")
   const title = input.value
